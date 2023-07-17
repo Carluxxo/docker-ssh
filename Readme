@@ -1,0 +1,36 @@
+# Dockerfile para criação de um contêiner SSH com criação de arquivo
+
+Este Dockerfile é usado para criar um contêiner Docker com suporte SSH e a capacidade de criar um arquivo chamado "teste.txt" em um diretório específico em um host remoto.
+
+## Instruções
+
+Siga estas etapas para usar este Dockerfile:
+
+1. Certifique-se de ter o Docker instalado no seu sistema.
+2. Crie um diretório para o projeto e coloque o arquivo Dockerfile nele.
+3. Coloque os arquivos `id_rsa` e `id_rsa.pub` no mesmo diretório do Dockerfile. Esses arquivos devem ser a chave SSH privada e pública, respectivamente.
+4. Abra o terminal ou prompt de comando e navegue até o diretório onde você colocou o Dockerfile.
+5. Execute o seguinte comando para criar a imagem Docker:
+
+docker build -t meu-container-ssh .
+
+
+6. Depois que a imagem for criada, você poderá executar o contêiner com o seguinte comando:
+
+docker run -it meu-container-ssh
+
+
+## Ao executar o contêiner, ele realizará as seguintes ações:
+
+- Atualizará o sistema operacional base para a versão mais recente do Ubuntu.
+- Instalará as dependências necessárias, incluindo o cliente SSH e a ferramenta Expect.
+- Copiará os arquivos de chave SSH (`id_rsa` e `id_rsa.pub`) para o diretório `/root/.ssh/` no contêiner.
+- Configurará as permissões corretas para os arquivos de chave SSH.
+- Adicionará uma configuração SSH para desativar a verificação de chave do host.
+- Executará o comando SSH com a ferramenta Expect para criar o arquivo "teste.txt" em um diretório remoto, especificado pelo usuário, no host especificado pelo IP.
+- O comando SSH esperará a solicitação de senha e enviará a senha especificada ("senha" neste exemplo).
+- Depois de criar o arquivo, o contêiner será finalizado.
+
+Certifique-se de substituir "user" pelo nome de usuário correto e "ip" pelo endereço IP do host remoto no comando SSH dentro do arquivo Dockerfile.
+
+Isso é tudo! Agora você pode usar este Dockerfile para criar um contêiner SSH com a capacidade de criar arquivos em um host remoto usando o comando SSH automatizado com Expect.
